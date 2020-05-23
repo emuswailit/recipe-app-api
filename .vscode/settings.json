@@ -6,5 +6,7 @@
     "--ignore=E501",
     "--verbose",
     "--max_line_length=120"
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true
 }
