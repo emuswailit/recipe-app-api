@@ -29,7 +29,7 @@ class IngredientViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     queryset = Ingredient.objects.all()
-    serializer_class = serializers.TagSerializer
+    serializer_class = serializers.IngredientSerializer
 
     def get_queryset(self):
         """Get ingredients for the logged on user"""
