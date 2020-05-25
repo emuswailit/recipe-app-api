@@ -24,11 +24,9 @@ export class Form extends Component {
   };
 
   handleMultiChange(option) {
-    this.setState((state) => {
-      return {
-        multiValue: option,
-      };
-    });
+    this.setState((state) => ({
+      multiValue: option,
+    }));
   }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
