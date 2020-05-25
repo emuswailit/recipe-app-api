@@ -8,5 +8,6 @@
     "--max_line_length=120"
   ],
   "editor.formatOnSave": true,
-  "editor.formatOnType": true
+  "editor.formatOnType": true,
+  "git.ignoreLimitWarning": true
 }

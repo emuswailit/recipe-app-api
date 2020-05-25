@@ -9,6 +9,13 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
         read_only_fields = ('id',)
 
+class TagDisplaySerializer(serializers.ModelSerializer):
+    """Serializer for Tag objects display"""
+    class Meta:
+        model = Tag
+        fields = ('name',)
+       
+
 
 class IngredientSerializer(serializers.ModelSerializer):
     """Serializer for ingredient"""
@@ -18,26 +25,12 @@ class IngredientSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'id',
         )
-
-
-class RecipeSerializer(serializers.ModelSerializer):
-    """Serialize a recipe"""
-    ingredients = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingredient.objects.all())
-    tags = serializers.PrimaryKeyRelatedField(many=True, queryset=Tag.objects.all())
-
+class IngredientDisplaySerializer(serializers.ModelSerializer):
+    """Serializer for ingredient"""
     class Meta:
-        model = Recipe
-        fields = (
-            'id', 'title', 'ingredients', 'tags', 'time_minutes', 'price', 'link'
-        )
-
-        read_only_fields = ('id',)
-
-
-class RecipeDetailSerializer(RecipeSerializer):
-    ingredients = IngredientSerializer(many=True, read_only=True)
-    tags = TagSerializer(many=True, read_only=True)
-
+        model = Ingredient
+        fields = ('name',)
+        
 
 class RecipeImageSerializer(serializers.ModelSerializer):
     """Serializer for uploading images to recipes"""
@@ -46,3 +39,30 @@ class RecipeImageSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ('id', 'image')
         read_only_fields = ('id',)
+
+class RecipeSerializer(serializers.ModelSerializer):
+    """Serialize a recipe"""
+    ingredients = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Ingredient.objects.all()
+    )
+    tags = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Tag.objects.all()
+    )
+
+    class Meta:
+        model = Recipe
+        fields = (
+            'id', 'title', 'ingredients', 'tags', 'time_minutes',
+            'price', 'link', 'image'
+        )
+        read_only_fields = ('id',)
+
+
+class RecipeDetailSerializer(RecipeSerializer):
+    """Serialize a recipe detail"""
+    ingredients = IngredientSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
+
+
